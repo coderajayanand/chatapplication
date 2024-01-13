@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "549536135596",
+    "project_id": "aschats-11638",
+    "storage_bucket": "aschats-11638.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549536135596:android:f35c4641a1c6f3d849e209",
+        "android_client_info": {
+          "package_name": "com.example.as_chats"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPX8OmbXq4_fxD6WLzcr_N6sQxjCXMwsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
