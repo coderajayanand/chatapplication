@@ -28,61 +28,69 @@ import java.util.Date;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class chatWin extends AppCompatActivity {
-
-    String receiverimg, receiveruid, receivername, senderuid;
-    FirebaseAuth firebaseAuth;
-    FirebaseDatabase database;
+    String reciverimg, reciverUid,reciverName,SenderUID;
     CircleImageView profile;
-    TextView receiverNName;
+    TextView reciverNName;
+    FirebaseDatabase database;
+    FirebaseAuth firebaseAuth;
+    public  static String senderImg;
+    public  static String reciverIImg;
     CardView sendbtn;
     EditText textmsg;
-    public static String senderImg;
-    public static String receiverIImg;
 
-    String senderRoom, receiverRoom;
-    RecyclerView mmsngerAdp;
+    String senderRoom,reciverRoom;
+    RecyclerView messageAdpter;
     ArrayList<msgModelClass> messagesArrayList;
-    messagesAdapter messagesAdapter;
+    messagesAdapter mmessagesAdpter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_win);
+        getSupportActionBar().hide();
+        database = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        mmsngerAdp = findViewById(R.id.msgadpter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        mmsngerAdp.setLayoutManager(linearLayoutManager);
-        messagesAdapter = new messagesAdapter(chatWin.this, messagesArrayList);
-        mmsngerAdp.setAdapter(messagesAdapter);
-
-        receivername = getIntent().getStringExtra("nameee");
-        receiverimg = getIntent().getStringExtra("receiverimg");
-        receiveruid = getIntent().getStringExtra("uid");
+        reciverName = getIntent().getStringExtra("nameeee");
+        reciverimg = getIntent().getStringExtra("reciverImg");
+        reciverUid = getIntent().getStringExtra("uid");
 
         messagesArrayList = new ArrayList<>();
 
         sendbtn = findViewById(R.id.sendButton);
         textmsg = findViewById(R.id.textmsg);
-
+        reciverNName = findViewById(R.id.recivername);
         profile = findViewById(R.id.profileimgg);
-        receiverNName = findViewById(R.id.recivername);
+        messageAdpter = findViewById(R.id.msgadpter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        messageAdpter.setLayoutManager(linearLayoutManager);
+        mmessagesAdpter = new messagesAdapter(chatWin.this,messagesArrayList);
+        messageAdpter.setAdapter(mmessagesAdpter);
 
-        Picasso.get().load(receiverimg).into(profile);
-        receiverNName.setText(""+receivername);
 
-        DatabaseReference reference = database.getReference().child("user").child(firebaseAuth.getUid());
-        DatabaseReference chatReference = database.getReference().child("user").child(senderRoom).child("messages");
+        Picasso.get().load(reciverimg).into(profile);
+        reciverNName.setText(""+reciverName);
 
-        chatReference.addValueEventListener(new ValueEventListener() {
+        SenderUID =  firebaseAuth.getUid();
+
+        senderRoom = SenderUID+reciverUid;
+        reciverRoom = reciverUid+SenderUID;
+
+
+
+        DatabaseReference  reference = database.getReference().child("user").child(firebaseAuth.getUid());
+        DatabaseReference  chatreference = database.getReference().child("chats").child(senderRoom).child("messages");
+
+
+        chatreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messagesArrayList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                     msgModelClass messages = dataSnapshot.getValue(msgModelClass.class);
                     messagesArrayList.add(messages);
                 }
-                messagesAdapter.notifyDataSetChanged();
+                mmessagesAdpter.notifyDataSetChanged();
             }
 
             @Override
@@ -90,12 +98,11 @@ public class chatWin extends AppCompatActivity {
 
             }
         });
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                senderImg = snapshot.child("profilepic").getValue().toString();
-                receiverIImg = receiverimg;
+                senderImg= snapshot.child("profilepic").getValue().toString();
+                reciverIImg=reciverimg;
             }
 
             @Override
@@ -104,33 +111,38 @@ public class chatWin extends AppCompatActivity {
             }
         });
 
-        senderuid = firebaseAuth.getUid();
-        senderRoom = senderuid + receiveruid;
-        receiverRoom = receiveruid + senderuid;
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String message = textmsg.getText().toString();
-                if(message.isEmpty())
-                {
-                    Toast.makeText(chatWin.this, "Enter some text in TextBox", Toast.LENGTH_SHORT).show();
+                if (message.isEmpty()){
+                    Toast.makeText(chatWin.this, "Enter The Message First", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 textmsg.setText("");
                 Date date = new Date();
-                msgModelClass messages = new msgModelClass(message, senderuid, date.getTime());
-                database = FirebaseDatabase.getInstance();
-                database.getReference().child("chats").child("senderRoom").child("messages").push().setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        database.getReference().child("chats").child("receiverRoom").child("messages").push().setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
+                msgModelClass messagess = new msgModelClass(message,SenderUID,date.getTime());
+
+                database=FirebaseDatabase.getInstance();
+                database.getReference().child("chats")
+                        .child(senderRoom)
+                        .child("messages")
+                        .push().setValue(messagess).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                database.getReference().child("chats")
+                                        .child(reciverRoom)
+                                        .child("messages")
+                                        .push().setValue(messagess).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
 
+                                            }
+                                        });
                             }
                         });
-                    }
-                });
             }
         });
+
     }
 }
