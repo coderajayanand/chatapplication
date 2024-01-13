@@ -84,7 +84,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/sendbtnn"
+            android:id="@+id/sendButton"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_5sdp"
