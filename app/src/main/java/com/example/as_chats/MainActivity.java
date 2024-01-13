@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     UserAdapter adapter;
     FirebaseDatabase database;
     ArrayList<Users> usersArrayList;
+    ImageView imageLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,35 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Set up database is starting");
             setupDatabase();
         }
+
+        imageLogout = findViewById(R.id.logoutimg);
+        imageLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(MainActivity.this, R.style.dialogue);
+                dialog.setContentView(R.layout.dialogue_layout);
+                Button yes, no;
+                yes = dialog.findViewById(R.id.yesbnt);
+                no = dialog.findViewById(R.id.nobnt);
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(MainActivity.this, login.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
     }
 
     private void setupDatabase() {
