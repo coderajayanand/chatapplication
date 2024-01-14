@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class splash extends AppCompatActivity {
 
     ImageView logo;
-    TextView name, own1, own2;
+    TextView name, own1, own2, own3;
     Animation topAni, botAni;
 
     @Override
@@ -25,6 +25,7 @@ public class splash extends AppCompatActivity {
         name = findViewById(R.id.logoNameImg);
         own1 = findViewById(R.id.own1);
         own2 = findViewById(R.id.own2);
+        own3 = findViewById(R.id.own3);
 
         topAni = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         botAni = AnimationUtils.loadAnimation(this, R.anim.bot_animation);
@@ -33,6 +34,7 @@ public class splash extends AppCompatActivity {
         name.setAnimation(botAni);
         own1.setAnimation(botAni);
         own2.setAnimation(botAni);
+        own3.setAnimation(topAni);
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/black"
     tools:context=".splash">
 
     <ImageView
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.278"
-        app:srcCompat="@drawable/av" />
+        app:srcCompat="@drawable/salogo" />
 
     <TextView
         android:id="@+id/logoNameImg"
@@ -25,8 +25,8 @@
         android:layout_height="92dp"
         android:fontFamily="@font/apptext"
         android:gravity="center"
-        android:text="AS Messanger"
-        android:textColor="@color/black"
+        android:text="SA Messanger"
+        android:textColor="@color/white"
         android:textSize="@dimen/_25sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
         android:gravity="center"
         android:text="From"
         android:textSize="@dimen/_12sdp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +57,8 @@
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_25sdp"
         android:text="Ajay Anand"
+        android:textSize="@dimen/_18sdp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -65,4 +67,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.849" />
+
+    <TextView
+        android:id="@+id/own3"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:gravity="center"
+        android:text="(Made with LOVE)"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.921" />
 </androidx.constraintlayout.widget.ConstraintLayout>

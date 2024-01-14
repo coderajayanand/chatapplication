@@ -13,15 +13,17 @@
         android:theme="@style/Theme.AS_Chats"
         tools:targetApi="31">
         <activity
+            android:name=".extraFeatures"
+            android:exported="false" />
+        <activity
             android:name=".chatWin"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-<!--        <activity-->
-<!--            android:name=".chatWin"-->
-<!--            android:exported="false" />-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".chatWin" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".registration"
             android:exported="false" />
