@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     ArrayList<Users> usersArrayList;
     ImageView imageLogout;
+    ImageView camBut, settBut, extraFeature;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        camBut = findViewById(R.id.camBut);
+        settBut = findViewById(R.id.settingBut);
+        extraFeature = findViewById(R.id.extraFeatureBut);
 
         if (auth.getCurrentUser() == null) {
             Intent intent = new Intent(MainActivity.this, login.class);
@@ -80,6 +85,32 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        settBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, settings.class);
+                startActivity(intent);
+            }
+        });
+
+        camBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 10);
+            }
+        });
+
+        extraFeature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, extraFeatures.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void setupDatabase() {
