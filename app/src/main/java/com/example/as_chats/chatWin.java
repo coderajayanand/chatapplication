@@ -46,12 +46,12 @@ public class chatWin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_win);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         database = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
-        reciverName = getIntent().getStringExtra("nameeee");
-        reciverimg = getIntent().getStringExtra("reciverImg");
+        reciverName = getIntent().getStringExtra("nameee");
+        reciverimg = getIntent().getStringExtra("receiverimg");
         reciverUid = getIntent().getStringExtra("uid");
 
         messagesArrayList = new ArrayList<>();
@@ -71,6 +71,8 @@ public class chatWin extends AppCompatActivity {
         Picasso.get().load(reciverimg).into(profile);
         reciverNName.setText(""+reciverName);
 
+        // RUNNING PERFECTLY TILL NOW
+
         SenderUID =  firebaseAuth.getUid();
 
         senderRoom = SenderUID+reciverUid;
@@ -81,6 +83,7 @@ public class chatWin extends AppCompatActivity {
         DatabaseReference  reference = database.getReference().child("user").child(firebaseAuth.getUid());
         DatabaseReference  chatreference = database.getReference().child("chats").child(senderRoom).child("messages");
 
+        // RUNNING PERFECTLY TILL NOW
 
         chatreference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,10 +101,15 @@ public class chatWin extends AppCompatActivity {
 
             }
         });
+
+        // RUNNING PERFECTLY TILL NOW
+
+        // reference.addValue.. not working
+        // changed profilepic to profilePic
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                senderImg= snapshot.child("profilepic").getValue().toString();
+                senderImg= snapshot.child("profilePic").getValue().toString();
                 reciverIImg=reciverimg;
             }
 
