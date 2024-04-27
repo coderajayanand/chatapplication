@@ -3,9 +3,11 @@ package com.example.as_chats;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -94,6 +96,16 @@ public class chatWin extends AppCompatActivity {
                     messagesArrayList.add(messages);
                 }
                 mmessagesAdpter.notifyDataSetChanged();
+                NotificationCompat.Builder mbuilder = (NotificationCompat.Builder)
+                        new NotificationCompat.Builder(getApplicationContext())
+                                .setSmallIcon(R.drawable.ajaynoti)
+                                .setContentTitle("Notification")
+                                .setContentText("Ajay sent you a message");
+
+                NotificationManager notificationManager = (NotificationManager)
+                        getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(0, mbuilder.build());
+
             }
 
             @Override

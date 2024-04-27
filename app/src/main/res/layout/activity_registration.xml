@@ -202,7 +202,7 @@
         app:layout_constraintVertical_bias="0.891" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/loginRedi"
         android:layout_width="@dimen/_118sdp"
         android:layout_height="@dimen/_24sdp"
         android:gravity="center"

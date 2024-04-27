@@ -2,6 +2,7 @@ package com.example.as_chats;
 
 public class Users {
     String userId, userName, email, password, profilePic, lastMessage, status;
+    Boolean hug;
 
     public Users(){}
 
@@ -12,6 +13,15 @@ public class Users {
         this.password = password;
         this.profilePic = profilePic;
         this.status = status;
+        hug = false;
+    }
+
+    public Boolean getHug() {
+        return hug;
+    }
+
+    public void setHug(Boolean hug) {
+        this.hug = hug;
     }
 
     public String getProfilePic() {
